@@ -1,0 +1,482 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "jwtsearchservice.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "JwtsearchService"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/jwdata/{genres}/{sources}": {
+      "get": {
+        "operationId": "JwtsearchService_Getjwtdetails",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/JwtsearchServiceTile"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "genres",
+            "in": "path",
+            "required": true,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "csv",
+            "minItems": 1
+          },
+          {
+            "name": "sources",
+            "in": "path",
+            "required": true,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "csv",
+            "minItems": 1
+          },
+          {
+            "name": "query",
+            "description": "string query = 1 [(validator.field) = {\nmsg_exists : true\nstring_not_empty : true\nhuman_error: \"Query cannot be empty.\"\n}];.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "emac",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "board",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "brand",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "vendor",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "cast",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "categories",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "languages",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          }
+        ],
+        "tags": [
+          "JwtsearchService"
+        ]
+      }
+    },
+    "/jwpost": {
+      "post": {
+        "operationId": "JwtsearchService_Postjwtdetails",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/JwtsearchServiceRow"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/JwtsearchServiceTvInfo"
+            }
+          }
+        ],
+        "tags": [
+          "JwtsearchService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "JwtsearchServiceBackdrops": {
+      "type": "object",
+      "properties": {
+        "backdropBlurHash": {
+          "type": "string"
+        },
+        "backdropUrl": {
+          "type": "string"
+        }
+      }
+    },
+    "JwtsearchServiceClips": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "provider": {
+          "type": "string"
+        },
+        "externalId": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "JwtsearchServiceCredits": {
+      "type": "object",
+      "properties": {
+        "role": {
+          "type": "string"
+        },
+        "characterName": {
+          "type": "string"
+        },
+        "personId": {
+          "type": "number",
+          "format": "double"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "JwtsearchServiceExternal_ids": {
+      "type": "object",
+      "properties": {
+        "provider": {
+          "type": "string"
+        },
+        "externalId": {
+          "type": "string"
+        }
+      }
+    },
+    "JwtsearchServiceFull_paths": {
+      "type": "object",
+      "properties": {
+        "MOVIEDETAILOVERVIEW": {
+          "type": "string"
+        }
+      }
+    },
+    "JwtsearchServiceOffers": {
+      "type": "object",
+      "properties": {
+        "country": {
+          "type": "string"
+        },
+        "jwEntityId": {
+          "type": "string"
+        },
+        "monetizationType": {
+          "type": "string"
+        },
+        "providerId": {
+          "type": "number",
+          "format": "double"
+        },
+        "retailPrice": {
+          "type": "number",
+          "format": "double"
+        },
+        "currency": {
+          "type": "string"
+        },
+        "urls": {
+          "$ref": "#/definitions/JwtsearchServiceUrls"
+        },
+        "presentationType": {
+          "type": "string"
+        }
+      }
+    },
+    "JwtsearchServiceRow": {
+      "type": "object",
+      "properties": {
+        "tiles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/JwtsearchServiceTile"
+          }
+        }
+      }
+    },
+    "JwtsearchServiceScoring": {
+      "type": "object",
+      "properties": {
+        "providerType": {
+          "type": "string"
+        },
+        "value": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
+    "JwtsearchServiceTile": {
+      "type": "object",
+      "properties": {
+        "shortDescription": {
+          "type": "string"
+        },
+        "originalReleaseYear": {
+          "type": "number",
+          "format": "double"
+        },
+        "originalTitle": {
+          "type": "string"
+        },
+        "scoring": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/JwtsearchServiceScoring"
+          }
+        },
+        "productionCountries": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "title": {
+          "type": "string"
+        },
+        "fullPath": {
+          "type": "string"
+        },
+        "poster": {
+          "type": "string"
+        },
+        "offers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/JwtsearchServiceOffers"
+          }
+        },
+        "runtime": {
+          "type": "number",
+          "format": "double"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "genreIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ageCertification": {
+          "type": "string"
+        },
+        "jwEntityId": {
+          "type": "string"
+        },
+        "id": {
+          "type": "number",
+          "format": "double"
+        },
+        "fullPaths": {
+          "$ref": "#/definitions/JwtsearchServiceFull_paths"
+        },
+        "objectType": {
+          "type": "string"
+        },
+        "credits": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/JwtsearchServiceCredits"
+          }
+        },
+        "externalIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/JwtsearchServiceExternal_ids"
+          }
+        },
+        "permanentAudiences": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "posterBlurHash": {
+          "type": "string"
+        },
+        "backdrops": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/JwtsearchServiceBackdrops"
+          }
+        },
+        "localizedReleaseDate": {
+          "type": "string"
+        },
+        "clips": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/JwtsearchServiceClips"
+          }
+        },
+        "cinemaReleaseDate": {
+          "type": "string"
+        }
+      }
+    },
+    "JwtsearchServiceTvInfo": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string",
+          "title": "string query = 1 [(validator.field) = {\nmsg_exists : true\nstring_not_empty : true\nhuman_error: \"Query cannot be empty.\"\n}];"
+        },
+        "emac": {
+          "type": "string"
+        },
+        "board": {
+          "type": "string"
+        },
+        "brand": {
+          "type": "string"
+        },
+        "vendor": {
+          "type": "string"
+        },
+        "genres": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "cast": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "categories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "languages": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "JwtsearchServiceUrls": {
+      "type": "object",
+      "properties": {
+        "standardWeb": {
+          "type": "string"
+        }
+      }
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "typeUrl": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    }
+  }
+}

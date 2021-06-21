@@ -1,0 +1,9 @@
+version: v1beta1
+#requires all to be lower case
+name: buf.build/cloudwalker-technologies/jwtsearchservice
+deps:
+  - buf.build/beta/googleapis
+  - buf.build/grpc-ecosystem/grpc-gateway
+build:
+  roots:
+    - proto

@@ -1,0 +1,138 @@
+syntax = "proto3";
+
+option go_package = "github.com/Cloudwalker-Technologies/JwtsearchService";
+
+package JwtsearchService;
+
+import "google/api/annotations.proto";
+import "google/protobuf/struct.proto";
+message Scoring {
+  string provider_type = 1;
+  double value = 2;
+}
+
+message Urls {
+  string standard_web = 1;
+}
+
+message Offers {
+  string country = 1;
+  string jw_entity_id = 2;
+  string monetization_type = 3;
+  double provider_id = 4;
+  double retail_price = 5;
+  string currency = 6;
+  Urls urls = 7;
+  string presentation_type = 8;
+}
+
+message Full_paths {
+  string MOVIE_DETAIL_OVERVIEW = 1;
+}
+
+message Credits {
+  string role = 1;
+  string character_name = 2;
+  double person_id = 3;
+  string name = 4;
+}
+
+message External_ids {
+  string provider = 1;
+  string external_id = 2;
+}
+
+message Backdrops {
+  string backdrop_blur_hash = 1;
+  string backdrop_url = 2;
+}
+
+message Clips {
+  string type = 1;
+  string provider = 2;
+  string external_id = 3;
+  string name = 4;
+}
+
+message Tile {
+  string short_description = 1;
+  double original_release_year = 2;
+  string original_title = 3;
+  repeated Scoring scoring = 4;
+  repeated string production_countries = 5;
+  string title = 6;
+  string full_path = 7;
+  string poster = 8;
+  repeated Offers offers = 9;
+  double runtime = 10;
+  repeated string sources = 11;
+  repeated string genre_ids = 12;
+  string age_certification = 13;
+  string jw_entity_id = 14;
+  double id = 15;
+  Full_paths full_paths = 16;
+  string object_type = 17;
+  repeated Credits credits = 18;
+  repeated External_ids external_ids = 19;
+  repeated string permanent_audiences = 20;
+  string poster_blur_hash = 21;
+  repeated Backdrops backdrops = 22;
+  string localized_release_date = 23;
+  repeated Clips clips = 24;
+  string cinema_release_date = 25;
+}
+
+
+message Row {
+  repeated Tile tiles = 1;
+}
+
+
+message TvInfo{
+  /*
+string query = 1 [(validator.field) = {
+  msg_exists : true
+  string_not_empty : true
+  human_error: "Query cannot be empty."
+}];
+*/
+  string query = 1;
+  string emac = 2;
+  string board = 3;
+  string brand = 4;
+  string vendor = 5;
+  repeated string genres = 6;
+  repeated string cast = 7;
+  repeated string categories = 8;
+  repeated string sources = 9;
+  repeated string languages = 10;
+}
+
+
+
+
+service JwtsearchService{
+  rpc Getjwtdetails(TvInfo) returns (Tile) {
+    option (google.api.http) = {
+      get:"/jwdata/{genres}/{sources}",
+    };
+  };
+
+  rpc Postjwtdetails(TvInfo) returns (Row) {
+    option (google.api.http) = {
+      post:"/jwpost",
+      body:"*"
+    };
+  };
+
+  /*
+  rpc Getwithprice(TvInfo) returns (Tile) {
+    option (google.api.http) = {
+      get:"/jwprice/{minprice}/{maxprice}",
+    };
+  };
+
+   */
+
+}
+
